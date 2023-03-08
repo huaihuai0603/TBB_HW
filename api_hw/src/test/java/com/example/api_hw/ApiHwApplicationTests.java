@@ -1,10 +1,10 @@
-package com.example.okhttp3_practice;
+package com.example.api_hw;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class Okhttp3PracticeApplicationTests {
+class ApiHwApplicationTests {
 
 	@Test
 	void contextLoads() {
