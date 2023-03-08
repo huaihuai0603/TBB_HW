@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <title>ajaxexample</title>
+</head>
+
+<!-- ajax範例2：輸入資料給後端，再呈現到前端 -->
+<body>
+    <!-- <form id="form1" runat="server"> -->
+        <!-- <div> -->
+            <!-- input的type可以定義成很多東西：text是單行文字、password是文字但是會遮蔽、button可點擊按鈕 -->
+            帳號：<input type="text" id="name"/>
+            密碼：<input type="password" id="password"/>
+            年齡：<input type="text" id="age"/>
+            <button type="submit" id="button" onclick="login()">
+            提交
+            </button>
+        <!-- </div> -->
+    <!-- </form> -->
+
+</body>
+<script>
+    //通過jQuery來得到帳密的資料
+    function login(){
+        alert($("#name").val());
+        var name=$('#name').val();
+        // var userAccount=$('#userAccount').val();
+        var password=$('#password').val();
+        var age=$('#age').val();
+        var user={name:name,password:password,age:age};
+        // var params={
+        //     "userAccount":userAccount,
+        //     "password":password
+        // }    
+    //利用ajax把剛剛拿到的資料送到後端
+        $.ajax({
+            type: "post",//請求方式為post
+            async:true,
+            data:user,//將data資料傳到後端
+            // datatype:'json',//data格式為json
+            url: "http://localhost:8080/MyFirstPage",//請求地址(也就是後端的位置？)
+            success: function (data) {
+            if (data) {
+               console.log(data);
+            }
+            },
+            //沒能從後台獲取結果時執行error
+            error: function () {
+               alert("錯誤");
+            }
+        });
+    }
+</script>
+
+<!-- ajax範例1：回傳遊樂園資料 -->
+<!-- <body>
+    <button id="buttonId">遊樂園資訊</button> 
+    <ul class="info"></ul>
+</body> -->
+
+<!-- <script>
+    $(function() {
+        $("#buttonId").bind("click", function() {   
+        $.ajax({ 
+            type:'GET', 
+            url:"127.0.0.1:8080/MyFirstPage",
+            //url: 'https://ruienyuski.github.io/git_test/data.json', 
+            //api 網址
+            dataType: 'json',
+            // success:function(response){$('.info').html('抓到資料囉!');},//抓到資料的話他只會顯示字串說你抓到了
+            success: function (response) { 
+            $.each(response, function(index, element) {
+                $('.info').append(
+                 $('<li>', 
+                 {text: [index+1]+'.'+'名稱：'+element.place}),
+                 $('<li>',
+                 {text: [index+1]+'.'+'地址：'+element.address}),
+                 $('<p>')
+             );
+        });
+        },
+        error:function(xhr){
+  alert("發生錯誤: " + xhr.status + " " + xhr.statusText);
+  }
+    });
+    })
+    })
+</script> -->
+</html>
